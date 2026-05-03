@@ -1,0 +1,28 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: backend
+  namespace: bootcamp
+  labels:
+    app: backend
+spec:
+  replicas: 2
+  selector:
+    matchLabels:
+      app: backend
+  template:
+    metadata:
+      labels:
+        app: backend
+    spec:
+      containers:
+      - name: linker-backend
+        image: geedee231/linker-backend
+        imagePullPolicy: Always
+        ports:
+        - containerPort: 3001
+        envFrom:
+        - configMapRef:
+            name: backend-cm
+        - secretRef:
+            name: backend-secrets

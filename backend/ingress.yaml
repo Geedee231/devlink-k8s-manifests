@@ -1,0 +1,24 @@
+apiVersion: networking.k8s.io/v1
+kind: Ingress
+metadata:
+  name: backend-ingress
+  namespace: bootcamp
+  annotations:
+    cert-manager.io/cluster-issuer: "bootcamp-issuer"
+spec:
+  ingressClassName: nginx
+  tls:
+  - hosts:
+    - api.nefua.com.ng
+    secretName: api-nefua-tls
+  rules:
+  - host: api.nefua.com.ng
+    http:
+      paths:
+      - path: /
+        pathType: Prefix
+        backend:
+          service:
+            name: backend
+            port:
+              number: 3001
