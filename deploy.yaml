@@ -1,0 +1,28 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  labels:
+    app: frontend
+  name: frontend
+  namespace: bootcamp
+spec:
+  replicas: 2
+  selector:
+    matchLabels:
+      app: frontend
+  strategy: {}
+  template:
+    metadata:
+      labels:
+        app: frontend
+    spec:
+      containers:
+      - image: geedee231/linker-frontend
+        name: linker-frontend
+        env:
+        - name: HOSTNAME
+          value: 0.0.0.0
+        - name: NEXT_PUBLIC_API_URL
+          value: "http://api.nefua.com.ng/"
+        resources: {}
+status: {}
